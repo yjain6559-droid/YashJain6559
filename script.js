@@ -2,12 +2,22 @@
 // Handles theme toggle, FAQ accordion, mobile navigation, portfolio interactions, and smooth scrolling
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Ensure page starts at the top
+    window.scrollTo(0, 0);
+    
+    // Remove any hash from URL to prevent auto-scrolling
+    if (window.location.hash) {
+        history.replaceState(null, null, window.location.pathname);
+    }
+    
     // Initialize all functionality
     initThemeToggle();
     initFAQ();
     initMobileNav();
     initSmoothScrolling();
     initAnimations();
+    // initHeaderScroll(); // reverted
+    // initParallax(); // reverted
     initPortfolioInteractions();
     initContactForm();
     initSkillBars();
@@ -18,18 +28,14 @@ function initThemeToggle() {
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
     
-    // Check for saved theme preference or default to dark mode
-    const savedTheme = localStorage.getItem('theme') || 'dark';
+    // Check for saved theme preference or default to light mode
+    const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
-    // Set initial theme (portfolio starts in dark mode)
-    if (savedTheme === 'light') {
-        body.classList.remove('dark-mode');
-        updateThemeIcon(false);
-    } else {
-        body.classList.add('dark-mode');
-        updateThemeIcon(true);
-    }
+    // Set initial theme: respect saved; else respect system; default to light
+    const shouldStartDark = savedTheme ? (savedTheme === 'dark') : prefersDark;
+    body.classList.toggle('dark-mode', shouldStartDark);
+    updateThemeIcon(shouldStartDark);
     
     // Theme toggle event listener
     themeToggle.addEventListener('click', function() {
@@ -50,12 +56,15 @@ function initThemeToggle() {
     });
     
     // Listen for system theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-        if (localStorage.getItem('theme') === 'system') {
-            body.classList.toggle('dark-mode', e.matches);
-            updateThemeIcon(e.matches);
-        }
-    });
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    if (media && media.addEventListener) {
+        media.addEventListener('change', function(e) {
+            if (!localStorage.getItem('theme')) {
+                body.classList.toggle('dark-mode', e.matches);
+                updateThemeIcon(e.matches);
+            }
+        });
+    }
 }
 
 function updateThemeIcon(isDark) {
@@ -122,6 +131,8 @@ function initMobileNav() {
             
             // Animate hamburger menu
             this.classList.toggle('active');
+
+            // Body scroll locking removed
         });
         
         // Close mobile menu when clicking on a link
@@ -131,6 +142,7 @@ function initMobileNav() {
                 navMenu.classList.remove('active');
                 navToggle.setAttribute('aria-expanded', 'false');
                 navToggle.classList.remove('active');
+                // Body scroll locking removed
             });
         });
         
@@ -140,6 +152,7 @@ function initMobileNav() {
                 navMenu.classList.remove('active');
                 navToggle.setAttribute('aria-expanded', 'false');
                 navToggle.classList.remove('active');
+                // Body scroll locking removed
             }
         });
     }
@@ -206,30 +219,7 @@ function initAnimations() {
 }
 
 // Header Scroll Effect
-function initHeaderScroll() {
-    const header = document.querySelector('.header');
-    let lastScrollY = window.scrollY;
-    
-    window.addEventListener('scroll', function() {
-        const currentScrollY = window.scrollY;
-        
-        // Add/remove scrolled class for styling
-        if (currentScrollY > 100) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-        
-        // Hide/show header on scroll (optional)
-        if (currentScrollY > lastScrollY && currentScrollY > 200) {
-            header.style.transform = 'translateY(-100%)';
-        } else {
-            header.style.transform = 'translateY(0)';
-        }
-        
-        lastScrollY = currentScrollY;
-    });
-}
+// initHeaderScroll and initParallax removed
 
 // Portfolio Interactions
 function initPortfolioInteractions() {
