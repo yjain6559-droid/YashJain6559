@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="dark-mode">
@@ -17,7 +17,9 @@
         <nav class="nav">
             <div class="nav-container">
                 <div class="nav-logo">
-                    <span class="logo-text">YASH JAIN</span>
+                    <a href="#" onclick="scrollToTop()" class="logo-link">
+                        <img src="images/LOGO.pdf.png" alt="YASH JAIN Logo" class="logo-image">
+                    </a>
                 </div>
                 <div class="nav-menu" id="nav-menu">
                     <a href="#about" class="nav-link">About</a>
@@ -40,33 +42,38 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <div class="hero-background">
+            <img src="images/Main.png" alt="Background" class="hero-bg-image">
+        </div>
         <div class="hero-container">
+            <div class="hero-title-section">
+                <h1 class="hero-title animate-fade-in">Bringing Brands to Life Through Dynamic Content</h1>
+            </div>
             <div class="hero-content">
-                <h1 class="hero-title">Bringing Brands to Life Through Dynamic Content</h1>
-                <p class="hero-subtitle">A Creative Manager and Digital Strategist. I use my skills in video, motion graphics, and design to make powerful content. I then manage targeted campaigns that turn a brand's message into engaging digital experiences.</p>
+                <p class="hero-subtitle animate-slide-left">A Creative Manager and Digital Strategist. I use my skills in video, motion graphics, and design to make powerful content. I then manage targeted campaigns that turn a brand's message into engaging digital experiences.</p>
                 <div class="hero-stats">
-                    <div class="stat">
+                    <div class="stat animate-bounce-in">
                         <span class="stat-number">200+</span>
                         <span class="stat-label">Projects Completed</span>
                     </div>
-                    <div class="stat">
+                    <div class="stat animate-bounce-in">
                         <span class="stat-number">5+</span>
                         <span class="stat-label">Years Experience</span>
                     </div>
-                    <div class="stat">
+                    <div class="stat animate-bounce-in">
                         <span class="stat-number">50+</span>
                         <span class="stat-label">Happy Clients</span>
                     </div>
                 </div>
                 <div class="hero-actions">
-                    <button class="btn btn-primary">View My Work</button>
-                    <button class="btn btn-secondary">
+                    <button class="btn btn-primary animate-scale-in">View My Work</button>
+                    <button class="btn btn-secondary animate-scale-in">
                         <i class="fas fa-play"></i>
                         Watch Reel
                     </button>
                 </div>
                 <div class="hero-urgency">
-                    <button class="btn btn-urgency" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">🎯 Currently accepting new projects</button>
+                    <button class="btn btn-urgency animate-pulse" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">🎯 Currently accepting new projects</button>
                 </div>
             </div>
             
@@ -120,7 +127,7 @@
                 <p class="section-subtitle">A showcase of my best projects and creative achievements</p>
             </div>
             <div class="portfolio-grid">
-                <div class="portfolio-item">
+                <div class="portfolio-item animate-fade-in">
                     <div class="portfolio-image">
                         <div class="image-placeholder">
                             <i class="fas fa-play-circle"></i>
@@ -140,7 +147,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="portfolio-item">
+                <div class="portfolio-item animate-slide-left">
                     <div class="portfolio-image">
                         <div class="image-placeholder">
                             <i class="fas fa-play-circle"></i>
@@ -160,7 +167,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="portfolio-item">
+                <div class="portfolio-item animate-slide-right">
                     <div class="portfolio-image">
                         <div class="image-placeholder">
                             <i class="fas fa-play-circle"></i>
@@ -683,7 +690,9 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <div class="footer-logo">
-                        <span class="logo-text">YASH JAIN</span>
+                        <a href="#" onclick="scrollToTop()" class="logo-link">
+                            <img src="images/LOGO.pdf.png" alt="YASH JAIN Logo" class="logo-image">
+                        </a>
                     </div>
                     <p class="footer-description">Professional video editor & motion graphics artist bringing your creative vision to life through cinematic storytelling.</p>
                     <div class="footer-social">

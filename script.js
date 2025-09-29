@@ -195,7 +195,7 @@ function updateActiveNavLink(targetId) {
     });
 }
 
-// Scroll-based Animations
+// Enhanced Scroll-based Animations
 function initAnimations() {
     const observerOptions = {
         threshold: 0.1,
@@ -205,16 +205,39 @@ function initAnimations() {
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('animate-fade-in');
+                // Add staggered animation delays
+                const delay = Array.from(entry.target.parentNode.children).indexOf(entry.target) * 100;
+                setTimeout(() => {
+                    entry.target.classList.add('animate-fade-in');
+                }, delay);
                 observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
     
     // Observe elements for animation
-    const animatedElements = document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card, .faq-item');
+    const animatedElements = document.querySelectorAll('.portfolio-item, .testimonial-card, .service-card, .skill-category, .faq-item, .contact-item');
     animatedElements.forEach(el => {
         observer.observe(el);
+    });
+    
+    // Add floating animation to stats
+    const stats = document.querySelectorAll('.stat-item');
+    stats.forEach((stat, index) => {
+        stat.style.animationDelay = `${index * 0.2}s`;
+        stat.classList.add('animate-float');
+    });
+    
+    // Add shimmer effect to buttons on hover
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.classList.add('animate-shimmer');
+        });
+        
+        button.addEventListener('mouseleave', function() {
+            this.classList.remove('animate-shimmer');
+        });
     });
 }
 
@@ -637,6 +660,14 @@ function showError(message) {
     }, 5000);
 }
 
+// Scroll to Top Function for Logo Click
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
 // Export functions for potential external use
 window.YashJainPortfolio = {
     showNotification,
@@ -644,5 +675,6 @@ window.YashJainPortfolio = {
     closeVideoModal,
     showServiceModal,
     closeServiceModal,
-    proceedToContact
+    proceedToContact,
+    scrollToTop
 };
