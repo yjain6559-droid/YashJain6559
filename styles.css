@@ -292,7 +292,7 @@ body {
     margin: 0 auto;
     padding: 0 1.5rem;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 4rem;
     align-items: center;
     position: relative;
@@ -300,7 +300,9 @@ body {
 }
 
 .hero-content {
-    max-width: 600px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .hero-badge {
@@ -331,6 +333,7 @@ body {
 .hero-subtitle {
     font-size: 1.25rem;
     line-height: 1.6;
+    margin-top: 1.5rem;
     margin-bottom: 2rem;
     color: var(--text-secondary);
 }
@@ -339,6 +342,7 @@ body {
     display: flex;
     gap: 2rem;
     margin-bottom: 2rem;
+    justify-content: center;
 }
 
 .stat {
@@ -365,6 +369,7 @@ body {
     display: flex;
     gap: 1rem;
     margin-bottom: 1.5rem;
+    justify-content: center;
 }
 
 .hero-urgency {
@@ -580,6 +585,22 @@ body {
 .about-image {
     display: flex;
     justify-content: center;
+}
+
+.about-photo {
+    width: 100%;
+    max-width: 420px;
+    background: var(--background-card);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-medium);
+    overflow: hidden;
+}
+
+.about-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
 .image-placeholder {
