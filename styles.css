@@ -168,6 +168,9 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     gap: 2rem;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 0.75rem;
+    backdrop-filter: blur(10px);
 }
 
 .nav-logo {
@@ -327,16 +330,19 @@ body {
 
 .hero-title-section {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     min-height: 70vh;
     width: 100%;
+    padding-top: 2rem;
 }
 
 .hero-content {
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
+    margin-top: 4rem;
+    padding-top: 2rem;
 }
 
 .hero-badge {
@@ -423,6 +429,7 @@ body {
     gap: 1rem;
     margin-bottom: 1.5rem;
     justify-content: center;
+    margin-top: 2rem;
 }
 
 .hero-urgency {
