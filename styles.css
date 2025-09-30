@@ -752,6 +752,20 @@ body {
     box-shadow: var(--shadow-glow);
 }
 
+.portfolio-cover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.portfolio-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
 .portfolio-content {
     padding: 1.5rem;
 }
