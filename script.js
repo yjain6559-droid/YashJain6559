@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // initHeaderScroll(); // reverted
     // initParallax(); // reverted
     initPortfolioInteractions();
+	initVideoHoverPlay();
     initContactForm();
     initSkillBars();
 });
@@ -275,6 +276,38 @@ function initPortfolioInteractions() {
             showVideoModal(this.closest('.portfolio-item'));
         });
     });
+}
+
+// Hover to Play/Pause for portfolio videos
+function initVideoHoverPlay() {
+	const videos = document.querySelectorAll('.portfolio-video');
+
+	videos.forEach(video => {
+		// Ensure instant playback without audio surprises
+		video.muted = true;
+		video.preload = 'metadata';
+
+		video.addEventListener('mouseenter', function() {
+			// User hover counts as a gesture in most browsers
+			try { this.play(); } catch (e) { /* no-op */ }
+		});
+
+		video.addEventListener('mouseleave', function() {
+			this.pause();
+			this.currentTime = 0;
+		});
+
+		// Extra safety: pause/reset if scrolled out of view
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (!entry.isIntersecting) {
+					video.pause();
+					video.currentTime = 0;
+				}
+			});
+		});
+		observer.observe(video);
+	});
 }
 
 // Skill Bars Animation
