@@ -338,7 +338,7 @@ function initSkillBars() {
 
 // Contact Form Handling
 function initContactForm() {
-    const contactForm = document.querySelector('.contact-form form');
+    const contactForm = document.querySelector('#contact-form');
     
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
@@ -346,10 +346,9 @@ function initContactForm() {
             
             // Get form data
             const formData = new FormData(this);
-            const name = this.querySelector('input[type="text"]').value;
-            const email = this.querySelector('input[type="email"]').value;
-            const projectType = this.querySelector('input[placeholder="Project Type"]').value;
-            const message = this.querySelector('textarea').value;
+            const name = this.querySelector('input[name="name"]').value;
+            const email = this.querySelector('input[name="email"]').value;
+            const message = this.querySelector('textarea[name="message"]').value;
             
             // Validate form
             if (!name || !email || !message) {
@@ -363,13 +362,31 @@ function initContactForm() {
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
             
-            // Simulate form submission
-            setTimeout(() => {
-                showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
-                this.reset();
+            // Submit to Formspree (replace with your endpoint in index.html action)
+            const endpoint = this.getAttribute('action');
+            fetch(endpoint, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            }).then(async (response) => {
+                if (response.ok) {
+                    showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
+                    this.reset();
+                } else {
+                    try {
+                        const data = await response.json();
+                        const firstError = data?.errors?.[0]?.message || 'Something went wrong.';
+                        showNotification(firstError, 'error');
+                    } catch (_) {
+                        showNotification('Failed to send. Please try again later.', 'error');
+                    }
+                }
+            }).catch(() => {
+                showNotification('Network error. Please try again.', 'error');
+            }).finally(() => {
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
-            }, 2000);
+            });
         });
     }
 }

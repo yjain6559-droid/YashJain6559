@@ -320,7 +320,7 @@
                             </div>
                         </div>
                         <div class="skill-item">
-                            <span class="skill-name">Fusion</span>
+                            <span class="skill-name">Other analytical tools</span>
                             <div class="skill-bar">
                                 <div class="skill-progress" style="width: 82%"></div>
                             </div>
@@ -412,7 +412,7 @@
                         </div>
                         <h3 class="service-title">Video Editing</h3>
                         <div class="service-price">
-                            <span class="price-current">Starting at $95</span>
+                            <span class="price-current"></span>
                         </div>
                         <p class="service-description">Professional video editing for all types of content</p>
                     </div>
@@ -458,7 +458,7 @@
                         </div>
                         <h3 class="service-title">Motion Graphics</h3>
                         <div class="service-price">
-                            <span class="price-current">Starting at $200</span>
+                            <span class="price-current"></span>
                         </div>
                         <p class="service-description">Custom motion graphics and visual effects</p>
                     </div>
@@ -504,7 +504,7 @@
                         </div>
                         <h3 class="service-title">Full Production</h3>
                         <div class="service-price">
-                            <span class="price-current">Starting at $300</span>
+                            <span class="price-current"></span>
                         </div>
                         <p class="service-description">Complete video production from concept to delivery</p>
                     </div>
@@ -592,16 +592,17 @@
                     </div>
                 </div>
                 <div class="contact-form">
-                    <form>
+                    <form id="contact-form" action="https://formspree.io/f/xxxxxxxx" method="POST">
                         <div class="form-group">
-                            <input type="text" placeholder="Your Name" required>
+                            <input type="text" name="name" placeholder="Your Name" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" placeholder="Your Email" required>
+                            <input type="email" name="email" placeholder="Your Email" required>
                         </div>
                         <div class="form-group">
-                            <textarea placeholder="Tell me about your project..." rows="5" required></textarea>
+                            <textarea name="message" placeholder="Tell me about your project..." rows="5" required></textarea>
                         </div>
+                        <input type="hidden" name="_subject" value="New message from portfolio" />
                         <button type="submit" class="btn btn-primary btn-full">Send Message</button>
                     </form>
                 </div>
