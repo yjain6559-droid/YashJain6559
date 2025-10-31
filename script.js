@@ -283,6 +283,9 @@ function initVideoHoverPlay() {
 	const videos = document.querySelectorAll('.portfolio-video');
 
 	videos.forEach(video => {
+		if (video.tagName.toLowerCase() !== 'video') {
+			return;
+		}
 		// Ensure instant playback without audio surprises
 		video.muted = true;
 		video.preload = 'metadata';
@@ -307,6 +310,55 @@ function initVideoHoverPlay() {
 			});
 		});
 		observer.observe(video);
+	});
+}
+
+// YouTube embed error fallback: replace errored iframes with a link button
+function initYouTubeErrorFallback() {
+	const iframes = document.querySelectorAll('iframe.portfolio-video[src*="youtube"]');
+	if (!iframes.length) return;
+
+	// Append origin param for better compatibility when served from http(s)
+	const origin = window.location.origin;
+	if (origin && origin.startsWith('http')) {
+		iframes.forEach(frame => {
+			try {
+				const url = new URL(frame.src);
+				if (!url.searchParams.get('origin')) {
+					url.searchParams.set('origin', origin);
+					frame.src = url.toString();
+				}
+			} catch (_) { /* ignore invalid URLs */ }
+		});
+	}
+
+	function replaceWithWatchLink(frame) {
+		try {
+			const m = frame.src.match(/\/embed\/([A-Za-z0-9_-]+)/);
+			const videoId = m ? m[1] : '';
+			const watchUrl = videoId ? `https://www.youtube.com/watch?v=${videoId}` : frame.src;
+			const wrapper = frame.parentElement;
+			if (!wrapper) return;
+			const link = document.createElement('a');
+			link.href = watchUrl;
+			link.target = '_blank';
+			link.rel = 'noopener noreferrer';
+			link.className = 'btn btn-primary btn-full';
+			link.textContent = 'Watch on YouTube';
+			frame.replaceWith(link);
+		} catch (_) { /* no-op */ }
+	}
+
+	window.addEventListener('message', function(e) {
+		// Expect messages from YouTube iframes containing JSON with event:onError
+		if (typeof e.data !== 'string') return;
+		let data;
+		try { data = JSON.parse(e.data); } catch (_) { return; }
+		if (!data || data.event !== 'onError') return;
+		const frame = Array.from(iframes).find(f => f.contentWindow === e.source);
+		if (!frame) return;
+		// Known error codes include 2,5,100,101,150,153
+		replaceWithWatchLink(frame);
 	});
 }
 
